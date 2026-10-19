@@ -24,7 +24,7 @@ from services.errors import AppError
 # Page Configuration & Styling
 # -----------------------------------------------------------------------------
 st.set_page_config(
-    page_title="RetailPulse | MongoDB Inventory Intelligence",
+    page_title="Retailerz | MongoDB Inventory Intelligence",
     page_icon="📦",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -46,24 +46,75 @@ CUSTOM_CSS = """
         font-family: 'JetBrains Mono', monospace !important;
     }
 
-    /* Main Container Padding - Increased top breathing room to clear Streamlit header */
+    /* Pinned Streamlit Top Bar - Permanently on top even when scrolling down */
+    header[data-testid="stHeader"] {
+        background: rgba(11, 15, 25, 0.95) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        z-index: 999990 !important;
+    }
+
+    header[data-testid="stHeader"]::before {
+        content: "📦 Retailerz";
+        position: absolute;
+        left: 4.8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #F8FAFC;
+        letter-spacing: -0.02em;
+        pointer-events: none;
+    }
+
+    header[data-testid="stHeader"]::after {
+        content: "Inventory Intelligence  •  MongoDB [retail_inventory]";
+        position: absolute;
+        left: 14.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 0.74rem;
+        font-weight: 600;
+        color: #38BDF8;
+        background: rgba(56, 189, 248, 0.12);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        border-radius: 9999px;
+        padding: 0.18rem 0.65rem;
+        pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+        header[data-testid="stHeader"]::after {
+            display: none !important;
+        }
+    }
+
+    /* Main Container Padding - clears the top fixed bar */
     .block-container {
         padding-top: 2.2rem !important;
         padding-bottom: 2.5rem !important;
         max-width: 96% !important;
     }
 
-    /* Top Persistent App Header Bar (Always visible whether sidebar is open or closed) */
+    /* Sticky App Header Bar */
     .top-app-header {
+        position: sticky;
+        top: 3.75rem;
+        z-index: 999;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
+        background: rgba(15, 23, 42, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 0.65rem 1.25rem;
         margin-bottom: 1.4rem;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
     }
 
     .brand-cluster {
@@ -313,7 +364,7 @@ with st.sidebar:
     st.markdown("""
         <div style="padding: 0.5rem 0 1rem 0;">
             <div style="font-size: 1.35rem; font-weight: 800; color: #F8FAFC; letter-spacing: -0.02em;">
-                📦 RetailPulse
+                📦 Retailerz
             </div>
             <div style="font-size: 0.75rem; color: #94A3B8; font-weight: 500;">
                 Intelligent NoSQL Inventory Engine
@@ -361,13 +412,13 @@ with st.sidebar:
 
 
 def render_top_bar():
-    """Renders a persistent top branding bar so RetailPulse is always clearly identified, even when the sidebar is collapsed."""
+    """Renders a persistent top branding bar so Retailerz is always clearly identified, even when the sidebar is collapsed."""
     st.markdown(f"""
         <div class="top-app-header">
             <div class="brand-cluster">
                 <div class="brand-icon-box">📦</div>
                 <div>
-                    <span class="brand-logo-text">RetailPulse</span>
+                    <span class="brand-logo-text">Retailerz</span>
                     <span class="brand-edition-badge">Inventory Intelligence</span>
                 </div>
             </div>
