@@ -46,43 +46,46 @@ CUSTOM_CSS = """
         font-family: 'JetBrains Mono', monospace !important;
     }
 
-    /* Pinned Streamlit Top Bar - Permanently on top even when scrolling down */
+    /* Pinned Streamlit Top Bar - Sleek, large, persistent on top even when scrolling down */
     header[data-testid="stHeader"] {
-        background: rgba(11, 15, 25, 0.95) !important;
+        height: 4.25rem !important;
+        background: rgba(11, 15, 25, 0.96) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
         backdrop-filter: blur(16px) !important;
         -webkit-backdrop-filter: blur(16px) !important;
         z-index: 999990 !important;
+        display: flex !important;
+        align-items: center !important;
     }
 
     header[data-testid="stHeader"]::before {
         content: "📦 Retailerz";
         position: absolute;
-        left: 4.8rem;
+        left: 5rem;
         top: 50%;
         transform: translateY(-50%);
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 1.15rem;
-        font-weight: 800;
-        color: #F8FAFC;
-        letter-spacing: -0.02em;
+        font-size: 1.45rem !important;
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        letter-spacing: -0.03em !important;
         pointer-events: none;
     }
 
     header[data-testid="stHeader"]::after {
-        content: "Inventory Intelligence  •  MongoDB [retail_inventory]";
+        content: "Enterprise Inventory Engine  •  MongoDB Active";
         position: absolute;
-        left: 14.5rem;
+        left: 16.5rem;
         top: 50%;
         transform: translateY(-50%);
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 0.74rem;
-        font-weight: 600;
-        color: #38BDF8;
-        background: rgba(56, 189, 248, 0.12);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        border-radius: 9999px;
-        padding: 0.18rem 0.65rem;
+        font-size: 0.8rem !important;
+        font-weight: 600 !important;
+        color: #34D399 !important;
+        background: rgba(16, 185, 129, 0.12) !important;
+        border: 1px solid rgba(16, 185, 129, 0.28) !important;
+        border-radius: 9999px !important;
+        padding: 0.22rem 0.75rem !important;
         pointer-events: none;
     }
 
@@ -92,84 +95,14 @@ CUSTOM_CSS = """
         }
     }
 
-    /* Main Container Padding - clears the top fixed bar */
+    /* Main Container Padding - clears the 4.25rem top header cleanly */
     .block-container {
-        padding-top: 2.2rem !important;
+        padding-top: 5.5rem !important;
         padding-bottom: 2.5rem !important;
         max-width: 96% !important;
     }
 
-    /* Sticky App Header Bar */
-    .top-app-header {
-        position: sticky;
-        top: 3.75rem;
-        z-index: 999;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(15, 23, 42, 0.92);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 0.65rem 1.25rem;
-        margin-bottom: 1.4rem;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
-    }
 
-    .brand-cluster {
-        display: flex;
-        align-items: center;
-        gap: 0.65rem;
-    }
-
-    .brand-icon-box {
-        background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        border-radius: 8px;
-        padding: 0.25rem 0.5rem;
-        font-size: 1.15rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .brand-logo-text {
-        font-size: 1.25rem;
-        font-weight: 800;
-        color: #F8FAFC;
-        letter-spacing: -0.02em;
-    }
-
-    .brand-edition-badge {
-        font-size: 0.7rem;
-        font-weight: 600;
-        color: #38BDF8;
-        background: rgba(56, 189, 248, 0.12);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        border-radius: 6px;
-        padding: 0.15rem 0.5rem;
-        letter-spacing: 0.03em;
-        margin-left: 0.35rem;
-    }
-
-    .header-system-status {
-        display: flex;
-        align-items: center;
-        gap: 0.55rem;
-        font-size: 0.8rem;
-        color: #94A3B8;
-        font-weight: 500;
-    }
-
-    .pulse-dot {
-        width: 8px;
-        height: 8px;
-        background-color: #10B981;
-        border-radius: 50%;
-        box-shadow: 0 0 8px #10B981;
-        display: inline-block;
-    }
 
     /* Page Headings - Solid, Crisp, Non-clipped typography */
     .page-main-title {
@@ -408,26 +341,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
-    st.caption("Academic Task 2 | CSE494 Intelligent NoSQL")
-
-
-def render_top_bar():
-    """Renders a persistent top branding bar so Retailerz is always clearly identified, even when the sidebar is collapsed."""
-    st.markdown(f"""
-        <div class="top-app-header">
-            <div class="brand-cluster">
-                <div class="brand-icon-box">📦</div>
-                <div>
-                    <span class="brand-logo-text">Retailerz</span>
-                    <span class="brand-edition-badge">Inventory Intelligence</span>
-                </div>
-            </div>
-            <div class="header-system-status">
-                <span class="pulse-dot"></span>
-                <span>Active Database: <strong style="color: #38BDF8;">{db.name}</strong> (MongoDB v{mongo_version})</span>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    st.caption("Retailerz Analytics Engine v2.0")
 
 
 # =============================================================================
@@ -1048,6 +962,6 @@ PAGES = {
     "📈 Deep Analytics": page_analytics
 }
 
-render_top_bar()
 PAGES[page]()
+
 
